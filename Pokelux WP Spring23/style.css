@@ -106,6 +106,8 @@ header nav button:hover {
      color: #d3d3d3;
 }
 
+
+
 .col {
      flex-basis: 45%;
      max-width: 45%;
@@ -193,8 +195,11 @@ form {
 }
 
 #pokeinfo {
+     background-color: #171714;
+}
+
+#PokeSearch {
      background-color: #333;
-     height: 69vh;
 }
 
 /* End of Footer Section */

@@ -21,17 +21,16 @@
         </nav>
    </header>
 
-    <form name="PokeSearch"><!--Search for a Pokemon-->
+    <form name="PokeSearch" id="PokeSearch"><!--Search for a Pokemon-->
         <label for="pokemon">Search for a Pokemon!</label>
         <br>
         <input type="text" id="pokemon" name="pokemon">
-        
         <input type="button" value="Search" onclick="search(this.form)">
     </form>
 
     <div id="pokeinfo"><!--This is where the table will be added from the javascript-->
     </div>
-    
+
 </body>
 <footer> <!--Footer of the Website-->
     <div class="fullfoot">
@@ -84,6 +83,7 @@
             my_data = myrequest.response.data
             const spriteURL = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${my_data.pokemon_v2_pokemon[0].id}.png`
             document.getElementById("pokeinfo").innerHTML = `
+            <div class = "row">
             <table>
             <tr>
                 <td>
@@ -109,7 +109,8 @@
                 </td>
             </tr>
             </table>
-            `
+            </div>
+            ` + document.getElementById("pokeinfo").innerHTML
         }
         myrequest.send(JSON.stringify(my_query))
     }
