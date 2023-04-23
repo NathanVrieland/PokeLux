@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head> <!--Window Title/Pic and File Linking-->
+    <meta charset="utf-8">
+    <title>Pokélux</title>
+    <link rel="shortcut icon" href="Poke Pics/Pokeball-Icon.ico" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js"></script>
+</head>
+<body>
+    <header> <!--Top Screen Banner Section-->
+        <a href="index.html"><img src="Poke Pics/Pokeball.png" alt="Logo"></a>
+        <nav>
+             <button href="pokedex.html"
+                  onclick="document.querySelector('.row').scrollIntoView({behavior: 'smooth'})">Collections</button>
+             <button href="#"
+                  onclick="document.querySelector('.Pokelux-Heading').scrollIntoView({behavior: 'smooth'})">About
+                  Us</button>
+             <button href="#"
+                  onclick="document.querySelector('.footrow').scrollIntoView({behavior: 'smooth'})">Support</button>
+        </nav>
+   </header>
+
+    <form name="PokeSearch"><!--Search for a Pokemon-->
+        <label for="pokemon">Search for a Pokemon!</label>
+        <br>
+        <input type="text" id="pokemon" name="pokemon">
+        
+        <input type="button" value="Search" onclick="search(this.form)">
+    </form>
+
+    <div id="pokeinfo"><!--This is where the table will be added from the javascript-->
+
+
+    </div>
+</body>
+<script>
+
+    function search(form) {
+        const pokedexurl = 'https://beta.pokeapi.co/graphql/v1beta'
+
+        const pokemon = form.pokemon.value
+        console.log(pokemon.value)
+        const my_query = {
+            query: `query ExampleQuery($where: pokemon_v2_pokemon_bool_exp) {
+                        pokemon_v2_pokemon(where: {name: {_eq: ${pokemon.toLowerCase()}}}) {
+                            name
+                            id
+                            weight
+                            height
+                            pokemon_v2_pokemontypes {
+                              pokemon_v2_type {
+                                name
+                              }
+                            }
+                            pokemon_v2_pokemonspecy {
+                              generation_id
+                            }
+                        }
+  
+                    }`
+                }
+        
+        const myrequest = new XMLHttpRequest();
+        myrequest.responseType = 'json'
+        myrequest.open('POST', pokedexurl)
+        myrequest.setRequestHeader('Content-Type', 'application/json')
+        
+        myrequest.onload = ()=> {
+            my_data = myrequest.response.data
+            const spriteURL = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${my_data.pokemon_v2_pokemon[0].id}.png`
+            document.getElementById("pokeinfo").innerHTML = `
+            <table>
+            <tr>
+                <td>
+                    <img src = ${spriteURL} width = 500>
+                </td>
+                <td>
+                    Name: ${my_data.pokemon_v2_pokemon[0].name}
+                    <br>
+                    ID: ${my_data.pokemon_v2_pokemon[0].id}
+                    <br>
+                    ${(my_data.pokemon_v2_pokemon[0].pokemon_v2_pokemontypes.length == 1)? 
+                        "Type: " + my_data.pokemon_v2_pokemon[0].pokemon_v2_pokemontypes[0].pokemon_v2_type.name: 
+                        "Types: " + my_data.pokemon_v2_pokemon[0].pokemon_v2_pokemontypes[0].pokemon_v2_type.name + 
+                        ", " + 
+                        my_data.pokemon_v2_pokemon[0].pokemon_v2_pokemontypes[1].pokemon_v2_type.name}
+                </td>
+                <td>
+                    Added in Generation: ${my_data.pokemon_v2_pokemon[0].pokemon_v2_pokemonspecy.generation_id}
+                    <br>
+                    Height: ${my_data.pokemon_v2_pokemon[0].height / 10} m
+                    <br>
+                    Weight: ${my_data.pokemon_v2_pokemon[0].weight / 10} kg
+                </td>
+            </tr>
+            </table>
+            `
+        }
+        myrequest.send(JSON.stringify(my_query))
+    }
+
+</script>
+</html>
+
+

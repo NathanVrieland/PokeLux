@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+
+    </body>
+    <script>
+        var pokemon = "pikachu"
+
+        const pokedexurl = 'https://beta.pokeapi.co/graphql/v1beta'
+        const my_query = {
+            query: `query ExampleQuery($where: pokemon_v2_pokemon_bool_exp) {
+                        pokemon_v2_pokemon(where: {name: {_eq: ${pokemon}}}) {
+                            name
+                            id
+                            weight
+                            height
+                            pokemon_v2_pokemonsprites {
+                              sprites
+                            }
+                            pokemon_v2_pokemontypes {
+                              pokemon_v2_type {
+                                name
+                              }
+                            }
+                        }
+  
+                    }`
+                }
+        const myrequest = new XMLHttpRequest();
+        myrequest.responseType = 'json'
+        myrequest.open('POST', pokedexurl)
+        myrequest.onload = ()=> {
+            my_data = myrequest.response.data
+            for(let i = 0; i < my_data.pokemon_v2_pokemon.length; i++) {
+                document.write(
+                    `<b>${my_data.pokemon_v2_pokemon[i].name}</b> <br>
+                    id: ${my_data.pokemon_v2_pokemon[i].id} <br>
+                    weight: ${my_data.pokemon_v2_pokemon[i].weight} <br>
+                    ${(my_data.pokemon_v2_pokemon[i].pokemon_v2_pokemontypes.length == 1)? 
+                        "type: " + my_data.pokemon_v2_pokemon[i].pokemon_v2_pokemontypes[0].pokemon_v2_type.name: 
+                        "types: " + my_data.pokemon_v2_pokemon[i].pokemon_v2_pokemontypes[0].pokemon_v2_type.name + 
+                        ", " + 
+                        my_data.pokemon_v2_pokemon[i].pokemon_v2_pokemontypes[1].pokemon_v2_type.name}
+                <hr>
+                `)
+            }
+        }
+        myrequest.send(JSON.stringify(my_query))
+    </script>
+</html>

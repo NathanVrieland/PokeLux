@@ -174,4 +174,22 @@ footer {
      color: #d3d3d3;
 }
 
+/* for search page */
+
+img {
+     image-rendering: crisp-edges;
+     transition: transform 0.3s ease-out;
+}
+img:hover {
+     transform: scale(1.05);
+     transition: transform 0.3s ease;
+}
+td {
+     padding-right: 50px;
+}
+
+form {
+     padding-top: 10px;
+}
+
 /* End of Footer Section */
