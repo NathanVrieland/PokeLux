@@ -189,7 +189,12 @@ td {
 }
 
 form {
-     padding-top: 10px;
+     padding: 10px;
+}
+
+#pokeinfo {
+     background-color: #333;
+     height: 69vh;
 }
 
 /* End of Footer Section */
