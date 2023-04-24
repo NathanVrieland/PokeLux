@@ -11,8 +11,8 @@
 
         const pokedexurl = 'https://beta.pokeapi.co/graphql/v1beta'
         const my_query = {
-            query: `query ExampleQuery($where: pokemon_v2_pokemon_bool_exp) {
-                        pokemon_v2_pokemon(where: {name: {_eq: ${pokemon}}}) {
+            query: `query ExampleQuery {
+                        pokemon_v2_pokemon {
                             name
                             id
                             weight

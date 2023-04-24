@@ -56,6 +56,9 @@ function search(form) {
                 <br>
                 Weight: ${my_data.pokemon_v2_pokemon[0].weight / 10} kg
             </td>
+            <td>
+                <a class="btn" href=https://pokemon.fandom.com/wiki/${my_data.pokemon_v2_pokemon[0].name} target="_blank"> more info </a>
+            </td>
         </tr>
         </table>
         </div>
