@@ -21,7 +21,7 @@
         </nav>
    </header>
 
-    <form name="PokeSearch" id="PokeSearch"><!--Search for a Pokemon-->
+    <form name="PokeSearch" id="PokeSearch" onsubmit="event.preventDefault(); search(this)"><!--Search for a Pokemon-->
         <label for="pokemon">Search for a Pokemon!</label>
         <br>
         <input type="text" id="pokemon" name="pokemon">
