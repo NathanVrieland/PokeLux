@@ -223,4 +223,10 @@ input[type="button"]:hover {
      background-color: #b2a4ff;
 }
 
+#errortext {
+     margin-top: 5px;
+     margin-bottom: 0px;
+     color: red;
+}
+
 /* End of Footer Section */

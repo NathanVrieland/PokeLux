@@ -1,4 +1,5 @@
 function search(form) {
+    document.getElementById("errortext").innerHTML = ""
     const pokedexurl = 'https://beta.pokeapi.co/graphql/v1beta'
 
     const pokemon = form.pokemon.value
@@ -30,6 +31,10 @@ function search(form) {
     
     myrequest.onload = ()=> {
         my_data = myrequest.response.data
+        if (my_data.pokemon_v2_pokemon.length == 0) {
+            document.getElementById("errortext").innerHTML = "Pokemon data not found"
+            return
+        }
         const spriteURL = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${my_data.pokemon_v2_pokemon[0].id}.png`
         document.getElementById("pokeinfo").innerHTML = `
         <div class = "row">
@@ -63,6 +68,8 @@ function search(form) {
         </table>
         </div>
         ` + document.getElementById("pokeinfo").innerHTML
+
     }
+
     myrequest.send(JSON.stringify(my_query))
 }
