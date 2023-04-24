@@ -1,9 +1,7 @@
 function search(form) {
     document.getElementById("errortext").innerHTML = ""
     const pokedexurl = 'https://beta.pokeapi.co/graphql/v1beta'
-
     const pokemon = form.pokemon.value
-    console.log(pokemon.value)
     const my_query = {
         query: `query ExampleQuery($where: pokemon_v2_pokemon_bool_exp) {
                     pokemon_v2_pokemon(where: {name: {_eq: ${pokemon.toLowerCase()}}}) {
