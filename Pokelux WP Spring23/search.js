@@ -2,7 +2,29 @@ function search(form) {
     document.getElementById("errortext").innerHTML = ""
     const pokedexurl = 'https://beta.pokeapi.co/graphql/v1beta'
     const pokemon = form.pokemon.value
-    const my_query = {
+    console.log(Number(pokemon))
+    if (Number.isInteger(Number(pokemon))) {
+        var my_query = {
+            query: `query ExampleQuery($where: pokemon_v2_pokemon_bool_exp) {
+                        pokemon_v2_pokemon(where: {id: {_eq: ${pokemon.toLowerCase()}}}) {
+                            name
+                            id
+                            weight
+                            height
+                            pokemon_v2_pokemontypes {
+                                pokemon_v2_type {
+                                name
+                                }
+                            }
+                            pokemon_v2_pokemonspecy {
+                                generation_id
+                            }
+                        }
+    
+                    }`
+                }
+    } else {
+    var my_query = {
         query: `query ExampleQuery($where: pokemon_v2_pokemon_bool_exp) {
                     pokemon_v2_pokemon(where: {name: {_eq: ${pokemon.toLowerCase()}}}) {
                         name
@@ -21,7 +43,7 @@ function search(form) {
 
                 }`
             }
-    
+        }
     const myrequest = new XMLHttpRequest();
     myrequest.responseType = 'json'
     myrequest.open('POST', pokedexurl)
