@@ -88,6 +88,7 @@ function search(form) {
         </table>
         </div>
         ` + document.getElementById("pokeinfo").innerHTML
+        form.pokemon.value = ""
     }
 
     myrequest.send(JSON.stringify(my_query))
